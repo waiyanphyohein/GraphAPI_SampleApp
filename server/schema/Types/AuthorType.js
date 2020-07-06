@@ -2,10 +2,13 @@ const {
     GraphQLID,
     GraphQLString,
     GraphQLInt,
-    GraphQLObjectType
+    GraphQLObjectType,
+    GraphQLList
 } = require('graphql');
+const _ = require('lodash');
+const books = require('../data/dummydata').books;
 
-const AuthorType = new GraphQLObjectType({
+const AuthorType = (types) => new GraphQLObjectType({
     name: 'Author',
     fields: () => ({
         id: {
@@ -16,6 +19,14 @@ const AuthorType = new GraphQLObjectType({
         },
         age: {
             type: GraphQLInt
+        },
+        books: {
+            type: new GraphQLList(types.BookType),
+            resolve(parent, args) {
+                return _.filter(books, {
+                    authorId: parent.id
+                });
+            }
         }
     }),
     description: 'A type that contains data for authors.'

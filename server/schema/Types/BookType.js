@@ -1,10 +1,14 @@
 const {
     GraphQLID,
     GraphQLString,
-    GraphQLObjectType
+    GraphQLObjectType,
 } = require('graphql');
+const _ = require('lodash');
 
-const BookType = new GraphQLObjectType({
+// The below code will be replaced with a service call to database for data retrieval.
+const authors = require('../data/dummydata').authors;
+
+const BookType = (types) => new GraphQLObjectType({
     name: 'Book',
     fields: () => ({
         id: {
@@ -15,6 +19,14 @@ const BookType = new GraphQLObjectType({
         },
         genre: {
             type: GraphQLString
+        },
+        author: {
+            type: types.AuthorType,
+            resolve(parent, args) {
+                return _.find(authors, {
+                    id: parent.authorId
+                });
+            }
         }
     }),
     description: 'A type that contains data for books.'

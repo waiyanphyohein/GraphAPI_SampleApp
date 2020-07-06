@@ -3,16 +3,38 @@ var DummyData = {
     books: [{
             name: 'Name of the Wind',
             genre: 'Fantasy',
-            id: '1'
+            id: '1',
+            authorId: '1'
         },
         {
             name: 'The Final Empire',
             genre: 'Fantasy',
-            id: '2'
-        }, {
+            id: '2',
+            authorId: '2'
+        },
+        {
             name: 'The Long Earth',
             genre: 'Sci-fi',
-            id: '3'
+            id: '3',
+            authorId: '3'
+        },
+        {
+            name: 'The Colour of Magic',
+            genre: 'Fantasy',
+            id: '5',
+            authorId: '3'
+        },
+        {
+            name: 'The Heroes of Ages',
+            genre: 'Fantasy',
+            id: '4',
+            authorId: '2'
+        },
+        {
+            name: 'The Light Fantasy',
+            genre: 'Fantasy',
+            id: '6',
+            authorId: '3'
         },
     ],
     authors: [{
