@@ -2,7 +2,7 @@ const schema = require('./schema/schema');
 const express = require('express');
 const mongoose = require('mongoose');
 const graphqlHTTP = require('express-graphql');
-const MongooseSettting = require('./setting');
+const MongooseSettting = require('./settings');
 const port = 8080;
 const app = express();
 
