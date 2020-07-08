@@ -1,10 +1,16 @@
+//#region Imports For Schema
+// MARK : Imports
 const _ = require('lodash');
 const graphql = require('graphql');
+const Author = require('../models/author');
+const Book = require('../models/book');
 
 const {
+    GraphQLString,
     GraphQLObjectType,
     GraphQLSchema,
     GraphQLList,
+    GraphQLInt,
     GraphQLID // GraphQLID can manage both string and number type as long as the values can be translated numerically.
 } = graphql;
 
@@ -16,6 +22,14 @@ const {
 
 
 // Types imports 
+// MARK : GraphQL Object Type Injection 
+
+/*
+    I have no clue why I have to do thins in order to avoid circular dependency.
+    This solution for this was found on Stack Overflow.
+    The Source: "https://stackoverflow.com/questions/61259799/graphql-one-of-the-provided-types-for-building-the-schema-is-missing-a-name"
+*/
+
 const AuthorTypeInject = require('./Types/AuthorType');
 const BookTypeInject = require('./Types/BookType');
 
@@ -26,10 +40,14 @@ types.BookType = BookTypeInject(types);
 
 const AuthorType = types.AuthorType;
 const BookType = types.BookType;
+//#endregion 
+
 
 // Creating a query associating to BookType,
 // which means what sort of function be allowed for front - end to call
 
+//#region RootQuery
+// MARK : RootQuery
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
@@ -83,7 +101,57 @@ const RootQuery = new GraphQLObjectType({
     description: 'A Root Query that contains book, author and such.'
 
 });
+//#endregion
 
+//#region Mutation
+// MARK : Mutation
+const Mutation = new GraphQLObjectType({
+    name: 'Mutation',
+    fields: {
+        addAuthor: {
+            type: AuthorType,
+            args: {
+                name: {
+                    type: GraphQLString
+                },
+                age: {
+                    type: GraphQLInt
+                }
+            },
+            resolve(parent, args) {
+                let author = new Author({
+                    name: args.name,
+                    age: args.age
+                });
+                return author.save();
+            }
+        },
+        addBook: {
+            type: BookType,
+            args: {
+                name: {
+                    type: GraphQLString
+                },
+                genre: {
+                    type: GraphQLString
+                },
+                authorId: {
+                    type: GraphQLString
+                }
+            },
+            resolve(parent, args) {
+                let book = new Book({
+                    name: args.name,
+                    genre: args.genre,
+                    authorId: args.authorId
+                });
+                return book.save();
+            }
+        }
+    }
+});
+//#endregion
 module.exports = new GraphQLSchema({
-    query: RootQuery
+    query: RootQuery,
+    mutation: Mutation
 });
