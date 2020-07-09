@@ -6,7 +6,7 @@ const {
     GraphQLList
 } = require('graphql');
 const _ = require('lodash');
-const books = require('../data/dummydata').books;
+const Book = require('./../../models/book');
 
 const AuthorType = (types) => new GraphQLObjectType({
     name: 'Author',
@@ -23,7 +23,10 @@ const AuthorType = (types) => new GraphQLObjectType({
         books: {
             type: new GraphQLList(types.BookType),
             resolve(parent, args) {
-                return _.filter(books, {
+                // return _.filter(books, {
+                //     authorId: parent.id
+                // });
+                return Book.find({
                     authorId: parent.id
                 });
             }

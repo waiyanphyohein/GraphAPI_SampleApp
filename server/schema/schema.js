@@ -14,11 +14,11 @@ const {
     GraphQLID // GraphQLID can manage both string and number type as long as the values can be translated numerically.
 } = graphql;
 
-// Dummy Data imports
-const {
-    books,
-    authors
-} = require('./data/dummydata');
+// Dummy Data imports <For testing purpose>
+// const {
+//     books,
+//     authors
+// } = require('./data/dummydata');
 
 
 // Types imports 
@@ -61,9 +61,10 @@ const RootQuery = new GraphQLObjectType({
             resolve(parent, args) {
                 // code to get data from db/other source
                 // The following code search for a data from a variable, in this case from books, and return a value based on specific field
-                return _.find(books, {
-                    id: args.id
-                });
+                // return _.find(books, {
+                //     id: args.id
+                // });
+                return Book.findById(args.id);
             },
             description: 'A type that contains data for books.'
         },
@@ -75,9 +76,10 @@ const RootQuery = new GraphQLObjectType({
                 }
             },
             resolve(parent, args) {
-                return _.find(authors, {
-                    id: args.id
-                });
+                // return _.find(authors, {
+                //     id: args.id
+                // });
+                return Author.findById(args.id);
             },
             description: 'A type that contains data for authors.'
         },
@@ -86,7 +88,8 @@ const RootQuery = new GraphQLObjectType({
         books: {
             type: new GraphQLList(BookType),
             resolve(parent, args) {
-                return books;
+                // return books;
+                return Book.find({});
             }
         },
 
@@ -94,7 +97,7 @@ const RootQuery = new GraphQLObjectType({
         authors: {
             type: new GraphQLList(AuthorType),
             resolve(parent, args) {
-                return authors;
+                return Author.find({});
             }
         }
     },
@@ -136,7 +139,7 @@ const Mutation = new GraphQLObjectType({
                     type: GraphQLString
                 },
                 authorId: {
-                    type: GraphQLString
+                    type: GraphQLID
                 }
             },
             resolve(parent, args) {
@@ -147,7 +150,10 @@ const Mutation = new GraphQLObjectType({
                 });
                 return book.save();
             }
-        }
+        },
+        // updateBook: {
+
+        // },
     }
 });
 //#endregion
