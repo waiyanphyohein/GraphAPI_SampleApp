@@ -4,7 +4,7 @@ This is a graphql tutorial project focuses on managing data efficiently. This pr
 
 # How To Install
 
-There are two types of projects in this repo. One for Back-End and one for Front-End. You need to install for both projects.
+There are two types of projects in this repo. One for Back-End and one for Front-End. You need to install node modules for both projects.
 
 ## For Back-End
     cd server
