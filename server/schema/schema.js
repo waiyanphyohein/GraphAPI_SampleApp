@@ -11,6 +11,7 @@ const {
     GraphQLSchema,
     GraphQLList,
     GraphQLInt,
+    GraphQLNonNull,
     GraphQLID // GraphQLID can manage both string and number type as long as the values can be translated numerically.
 } = graphql;
 
@@ -115,10 +116,10 @@ const Mutation = new GraphQLObjectType({
             type: AuthorType,
             args: {
                 name: {
-                    type: GraphQLString
+                    type: new GraphQLNonNull(GraphQLString)
                 },
                 age: {
-                    type: GraphQLInt
+                    type: new GraphQLNonNull(GraphQLInt)
                 }
             },
             resolve(parent, args) {
@@ -133,13 +134,13 @@ const Mutation = new GraphQLObjectType({
             type: BookType,
             args: {
                 name: {
-                    type: GraphQLString
+                    type: new GraphQLNonNull(GraphQLString)
                 },
                 genre: {
-                    type: GraphQLString
+                    type: new GraphQLNonNull(GraphQLString)
                 },
                 authorId: {
-                    type: GraphQLID
+                    type: new GraphQLNonNull(GraphQLID)
                 }
             },
             resolve(parent, args) {
@@ -151,6 +152,30 @@ const Mutation = new GraphQLObjectType({
                 return book.save();
             }
         },
+        removeBook: {
+            type: BookType,
+            args: {
+                name: {
+                    type: new GraphQLNonNull(GraphQLString)
+                },
+            },
+            resolve(parent, args) {
+                const res = Book.find({
+                    name: args.name
+                });
+
+                // Remove the book with the same id.
+                Book.deleteOne({
+                    name: args.name
+                }, (error) => {
+                    if (error)
+                        console.log(error);
+                    else
+                        console.log("Delete Successful.");
+                })
+                return res;
+            }
+        }
         // updateBook: {
 
         // },
