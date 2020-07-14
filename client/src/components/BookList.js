@@ -7,7 +7,7 @@ class BookList extends Component {
         return(
             <div>
                 <ul id="book-list">
-                    <li>An item</li>
+                    <li>An item </li>
                 </ul>    
             </div>
         );

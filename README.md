@@ -17,3 +17,9 @@ There are two types of projects in this repo. One for Back-End and one for Front
     Graphql         : "^15.1.0",
     Lodash          : "^4.17.15"
     Mongoose        : "^5.9.22"
+    React           : "^16.13.1",
+    React-Dom       : "^16.13.1",
+    React-Scripts   : "3.4.1"
+    Apollo-Boost    : "^0.4.9",
+    Graphql         : "^15.3.0",
+    React           : "^16.13.1",
