@@ -1,11 +1,16 @@
 const schema = require('./schema/schema');
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const graphqlHTTP = require('express-graphql');
 const MongooseSettting = require('./settings');
+
+
 const port = 8080;
 const app = express();
 
+// allow origin request
+app.use(cors());
 
 // Connect To MLab DB
 mongoose.connect(MongooseSettting.connectionString, MongooseSettting.options);
