@@ -13,11 +13,27 @@ const getBooksQuery = gql`
     }
 `
 
+const ImageSyle = {
+    size: 'responsive',
+    width: '100px',
+    height: '80px'
+};
+
 class BookList extends Component {
-    displayBooks() {
+    
+    displayBooks() {       
         var data = this.props.data;
-        if (data.loading)
-            return (<div>loading...</div>);
+        if (data.loading || !data.books)
+            return (                
+                    <img src={
+                        process.env.PUBLIC_URL + '/loading.gif'
+                    }
+                    alt = 'loading..'
+                        className='img-responsive'
+                        style = {
+                            ImageSyle
+                        } />
+            );
         else {            
             return data.books.map(book => {
                 return (<li key={book.id}>
@@ -28,6 +44,7 @@ class BookList extends Component {
                 
     }
     render() {              
+        
         return(
             <div>
                 <ul id="book-list">
