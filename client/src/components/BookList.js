@@ -31,7 +31,7 @@ class BookList extends Component {
         else {            
             return data.books.map(book => {
                 return (<li key={book.id}>
-                  {book.name}
+                  {book.name} by [<b>{book.author.name}</b>]
               </li>)  
             });
         }

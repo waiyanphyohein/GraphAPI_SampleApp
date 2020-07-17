@@ -16,5 +16,8 @@
     "graphql": "^15.1.0",
     "lodash": "^4.17.18",
     "mongoose": "^5.9.22"
+  },
+  "devDependencies": {
+    "mocha": "^8.0.1"
   }
 }
