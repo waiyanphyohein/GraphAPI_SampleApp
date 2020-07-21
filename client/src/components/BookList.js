@@ -6,6 +6,9 @@ import {
     getBooksQuery
 } from '../queries/queries';
 
+// Component(s)
+import BookDetails from "./BookDetails";
+
 
 const ImageSyle = {
     size: 'responsive',
@@ -15,8 +18,16 @@ const ImageSyle = {
 
 class BookList extends Component {
     
+    constructor(props) {
+        super(props);
+        this.state = {
+            selected: ''
+        };
+    }
+    
     displayBooks() {       
         var data = this.props.data;
+        console.log(data);
         if (data.loading || !data.books)
             return (                
                     <img src={
@@ -30,20 +41,24 @@ class BookList extends Component {
             );
         else {            
             return data.books.map(book => {
-                return (<li key={book.id}>
-                  {book.name} by [<b>{book.author.name}</b>]
-              </li>)  
+                return (
+                    <li key={book.id} onClick={(e) => {
+                        this.setState({ selected: book.id });
+                    }}>
+                        {book.name}
+                    </li>)  
             });
         }
                 
     }
-    render() {              
-        
+    render() {                      
         return(
             <div>
                 <ul id="book-list">
-                    {this.displayBooks()}
-                </ul>    
+                    {this.displayBooks()}                
+                </ul>                  
+                < BookDetails bookId= {this.state.selected}
+                />
             </div>
         );
     }
