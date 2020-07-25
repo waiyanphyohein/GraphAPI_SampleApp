@@ -14,7 +14,7 @@ There are two types of projects in this repo. One for Back-End and one for Front
     cd client
     npm install
 
-### Note: Currently, the project uses mongoDB mLav to host data. You will need to have a "setting.js" file in your server site folder to setup connection string for your server app to host.
+**Note**: Currently, the project uses mongoDB mLav to host data. You will need to have a "setting.js" file in your server site folder to setup connection string for your server app to host.
 
 # How To Run
 
